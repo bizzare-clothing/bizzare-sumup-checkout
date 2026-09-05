@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIZZARE | DROP 001 Luxury Streetwear</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#d4af37',
+                        'gold-hover': '#f3cf55',
+                        'dark-bg': '#0a0a0a',
+                        'card-bg': '#121212',
+                        'border-dark': '#1a1a1a',
+                        'border-hover': '#333333'
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
+                        mono: ['Courier New', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom CSS Styles -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Gold Border Hover Effect */
+        .gold-border-glow {
+            transition: all 0.3s ease;
+        }
+        .gold-border-glow:hover {
+            border-color: #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.12);
+        }
+
+        /* Cart Drawer Slide Animation */
+        .cart-drawer {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Backdrop Overlay Animation */
+        .backdrop {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        /* Toast Animation */
+        .toast-enter {
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Custom Scrollbar for Drawer */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222222;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-dark-bg text-white selection:bg-gold selection:text-black">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-black border-b border-border-dark text-[10px] tracking-[0.25em] uppercase text-neutral-400 py-2.5 px-4 text-center flex justify-between items-center">
+        <span class="hidden sm:inline-block">FLAT RATE UK SHIPPING £2.99</span>
+        <span class="mx-auto sm:mx-0 text-gold font-semibold">DROP 001 // EXCLUSIVE RELEASE</span>
+        <span class="hidden sm:inline-block">AUTHENTICITY GUARANTEED</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-30 bg-dark-bg/90 backdrop-blur-md border-b border-border-dark transition-all">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="text-2xl font-black tracking-[0.3em] text-white hover:text-gold transition-colors duration-300">
+                BIZZARE
+            </a>
+
+            <!-- Subtitle/Release Tag -->
+            <div class="hidden md:flex items-center space-x-3 text-xs tracking-[0.25em] text-neutral-400 uppercase font-mono">
+                <span>LIMITED DROP 001</span>
+                <span class="text-gold">•</span>
+                <span>2 PIECES</span>
+            </div>
+
+            <!-- Cart Trigger Button -->
+            <button onclick="toggleCart(true)" class="flex items-center space-x-3 text-xs tracking-[0.2em] font-medium text-white hover:text-gold transition-colors border border-border-dark hover:border-gold px-4 py-2.5 rounded-none bg-card-bg">
+                <span>CART</span>
+                <span class="bg-gold text-black px-2 py-0.5 font-bold text-[10px] rounded-none" id="cart-counter">0</span>
+            </button>
+
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="border-b border-border-dark py-20 px-6 text-center bg-gradient-to-b from-dark-bg via-card-bg to-dark-bg relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+        <span class="text-gold text-xs tracking-[0.4em] uppercase font-bold block mb-3">ATELIER RELEASE</span>
+        <h1 class="text-5xl md:text-7xl font-light tracking-[0.25em] uppercase mb-6 text-white">DROP 001</h1>
+        <p class="text-neutral-500 text-xs md:text-sm tracking-[0.2em] uppercase max-w-xl mx-auto">Heavyweight fabrics. Uncompromised cuts. Engineered for discreet luxury.</p>
+    </section>
+
+    <!-- Main Product Catalog -->
+    <main class="max-w-7xl mx-auto px-6 py-16 flex-grow w-full">
+        <div class="max-w-4xl mx-auto flex justify-between items-center mb-10 pb-4 border-b border-border-dark">
+            <h2 class="text-xs md:text-sm tracking-[0.3em] text-neutral-400 uppercase font-semibold" id="catalog-title">DROP 001 // CATALOG</h2>
+            <span class="text-xs text-neutral-500 tracking-[0.15em] font-mono">2 ITEMS AVAILABLE</span>
+        </div>
+
+        <!-- Centered 2-Column Product Grid -->
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12" id="product-grid">
+            <!-- Products injected by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-border-dark bg-black py-12 px-6 text-neutral-500 text-xs tracking-[0.2em] uppercase">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <span class="text-white font-bold tracking-[0.3em] text-sm">BIZZARE</span>
+                <p class="mt-2 text-[10px] text-neutral-600">LUXURY STREETWEAR ATELIER &copy; 2026 ALL RIGHTS RESERVED.</p>
+            </div>
+            <div class="flex space-x-8 text-[11px]">
+                <a href="#" class="hover:text-gold transition-colors">PRIVACY POLICY</a>
+                <a href="#" class="hover:text-gold transition-colors">TERMS OF SERVICE</a>
+                <a href="#" class="hover:text-gold transition-colors">SHIPPING & RETURNS</a>
+                <a href="#" class="hover:text-gold transition-colors">CONTACT</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Slide-out Cart Drawer & Backdrop Overlay -->
+    <div id="cart-backdrop" onclick="toggleCart(false)" class="backdrop fixed inset-0 bg-black/75 backdrop-blur-sm z-40 opacity-0 pointer-events-none"></div>
+
+    <aside id="cart-drawer" class="cart-drawer fixed top-0 right-0 h-full w-full max-w-md bg-card-bg border-l border-border-dark z-50 transform translate-x-full flex flex-col justify-between shadow-2xl">
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-border-dark flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <h3 class="text-sm font-bold tracking-[0.3em] text-white uppercase">YOUR CART</h3>
+                <span class="text-xs text-gold tracking-[0.2em]" id="drawer-item-count">(0)</span>
+            </div>
+            <button onclick="toggleCart(false)" class="text-neutral-500 hover:text-white p-2 text-xl font-mono leading-none">&times;</button>
+        </div>
+
+        <!-- Cart Items Scrollable List -->
+        <div class="p-6 overflow-y-auto flex-grow space-y-6" id="cart-items-container">
+            <!-- Dynamic Cart Items Rendered Here -->
+        </div>
+
+        <!-- Cart Summary & Checkout Footer -->
+        <div class="p-6 border-t border-border-dark bg-black space-y-4">
+            <div class="space-y-2 text-xs tracking-[0.2em] uppercase">
+                <div class="flex justify-between text-neutral-400">
+                    <span>SUBTOTAL</span>
+                    <span id="summary-subtotal" class="text-white font-mono">£0.00</span>
+                </div>
+                <div class="flex justify-between text-neutral-400">
+                    <span>SHIPPING (FLAT RATE)</span>
+                    <span id="summary-shipping" class="text-gold font-mono">£2.99</span>
+                </div>
+                <div class="border-t border-border-dark pt-3 mt-2 flex justify-between text-sm font-bold text-white">
+                    <span class="tracking-[0.25em]">TOTAL</span>
+                    <span id="summary-total" class="text-gold font-mono text-base">£0.00</span>
+                </div>
+            </div>
+
+            <button onclick="checkout()" id="checkout-btn" class="w-full bg-gold hover:bg-gold-hover text-black font-bold py-4 text-xs tracking-[0.3em] uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
+                PROCEED TO CHECKOUT
+            </button>
+            <p class="text-[9px] text-center text-neutral-600 tracking-[0.2em] uppercase">SECURE ENCRYPTED 256-BIT CHECKOUT</p>
+        </div>
+    </aside>
+
+    <!-- Checkout Confirmation Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-card-bg border border-gold p-8 max-w-lg w-full text-center space-y-6 relative shadow-2xl">
+            <div class="w-16 h-16 border border-gold text-gold rounded-full flex items-center justify-center mx-auto text-2xl font-bold">✓</div>
+            <p class="text-gold text-xs tracking-[0.3em] uppercase font-bold">ORDER CONFIRMED</p>
+            <h3 class="text-2xl font-light tracking-[0.2em] text-white">THANK YOU FOR YOUR PURCHASE</h3>
+            
+            <p class="text-xs text-neutral-400 tracking-[0.15em]">ORDER NUMBER: <span id="modal-order-id" class="text-white font-mono font-bold">#BZ-98241</span></p>
+            
+            <div class="border-t border-b border-border-dark py-4 my-4 text-left text-xs tracking-[0.15em] space-y-2 text-neutral-400">
+                <div class="flex justify-between">
+                    <span>ITEMS TOTAL:</span>
+                    <span id="modal-item-count" class="text-white font-mono">0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>TOTAL CHARGED:</span>
+                    <span id="modal-total-price" class="text-gold font-mono font-bold">£0.00</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>STATUS:</span>
+                    <span class="text-emerald-400 font-bold">PREPARING FOR SHIPMENT</span>
+                </div>
+            </div>
+
+            <button onclick="closeCheckoutModal()" class="w-full border border-gold text-gold hover:bg-gold hover:text-black py-3 text-xs tracking-[0.25em] font-bold uppercase transition-all duration-300">
+                RETURN TO SHOP
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-3 pointer-events-none"></div>
+
+    <script>
+        // Product Catalog Database - Strictly 2 Drop Items
+        const products = [
+            {
+                id: 'prod-1',
+                title: 'Oversized Heavyweight Tee',
+                price: 25,
+                category: 'DROP 001',
+                sizes: ['S', 'M', 'L', 'XL'],
+                defaultSize: 'M',
+                colors: ['White', 'Black'],
+                defaultColor: 'White',
+                images: {
+                    White: [
+                        'assets/img/tee/back-full.webp',
+                        'assets/img/tee/front-flat.webp',
+                        'assets/img/tee/back-detail.webp',
+                        'assets/img/tee/sleeve-detail.webp',
+                        'assets/img/tee/hem-detail.webp'
+                    ],
+                    Black: [
+                        'assets/img/tee-black/back-full.webp',
+                        'assets/img/tee-black/front-flat.webp',
+                        'assets/img/tee-black/sleeve-detail.webp',
+                        'assets/img/tee-black/hem-detail.webp',
+                        'assets/img/tee-black/back-detail.webp'
+                    ]
+                }
+            },
+            {
+                id: 'prod-2',
+                title: 'BIZZARE Trucker Hat',
+                price: 15,
+                category: 'DROP 001',
+                sizes: ['ONE SIZE'],
+                defaultSize: 'ONE SIZE',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full stroke-neutral-400 fill-none stroke-[1.5]" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20,55 Q50,20 80,55 Z" />
+                    <path d="M15,55 Q50,50 95,58 L80,55 L20,55 Z" />
+                    <circle cx="50" cy="23" r="3" fill="#d4af37" />
+                </svg>`
+            }
+        ];
+
+        // Track selected size per product
+        const selectedSizes = {};
+        products.forEach(p => {
+            selectedSizes[p.id] = p.defaultSize;
+        });
+
+        // Track selected colour per product (for products with colour variants)
+        const selectedColor = {};
+        products.forEach(p => {
+            if (p.colors) selectedColor[p.id] = p.defaultColor;
+        });
+
+        // Track selected gallery image per product (for products with real photos)
+        const selectedImage = {};
+        products.forEach(p => {
+            if (p.images) selectedImage[p.id] = 0;
+        });
+
+        // Cart State Array
+        let cart = [];
+
+        // Render Product Catalog Cards
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card bg-card-bg border border-border-dark p-6 md:p-8 flex flex-col justify-between gold-border-glow transition-all duration-300';
+                
+                // Size selection controls layout
+                const isSingleSize = product.sizes.length === 1;
+                
+                const sizeOptionsHtml = isSingleSize 
+                    ? `<div class="py-2 px-3 border border-gold text-gold font-mono text-center text-xs tracking-[0.2em] bg-gold/10 uppercase font-bold">
+                           ${product.sizes[0]}
+                       </div>`
+                    : `<div class="grid grid-cols-4 gap-2 text-xs font-mono">
+                            ${product.sizes.map(size => `
+                                <button onclick="selectSize('${product.id}', '${size}')" 
+                                        id="size-btn-${product.id}-${size}" 
+                                        class="size-btn-${product.id} py-2 border ${selectedSizes[product.id] === size ? 'border-gold text-gold font-bold bg-gold/10' : 'border-border-dark text-neutral-400 hover:border-neutral-600'} transition-all">
+                                    ${size}
+                                </button>
+                            `).join('')}
+                       </div>`;
+
+                const colorOptionsHtml = product.colors
+                    ? `<div class="mb-6">
+                            <label class="block text-[9px] tracking-[0.2em] uppercase text-neutral-500 mb-2">COLOUR:</label>
+                            <div class="grid gap-2 text-xs font-mono" style="grid-template-columns: repeat(${product.colors.length}, minmax(0,1fr));">
+                                ${product.colors.map(color => `
+                                    <button onclick="selectColor('${product.id}', '${color}')"
+                                            id="color-btn-${product.id}-${color}"
+                                            class="color-btn-${product.id} py-2 border ${selectedColor[product.id] === color ? 'border-gold text-gold font-bold bg-gold/10' : 'border-border-dark text-neutral-400 hover:border-neutral-600'} transition-all uppercase">
+                                        ${color}
+                                    </button>
+                                `).join('')}
+                            </div>
+                       </div>`
+                    : '';
+
+                const productImages = product.images
+                    ? (product.colors ? product.images[selectedColor[product.id]] : product.images)
+                    : null;
+
+                const mediaHtml = productImages
+                    ? `<div class="bg-dark-bg border border-border-dark w-full mb-6 relative overflow-hidden">
+                            <span class="absolute top-3 left-3 z-10 text-[9px] tracking-[0.25em] text-gold font-mono uppercase font-semibold">LIMITED PIECE</span>
+                            <div class="aspect-square w-full overflow-hidden">
+                                <img id="main-img-${product.id}" src="${productImages[0]}" alt="${product.title}" class="w-full h-full object-cover" />
+                            </div>
+                            <div class="grid grid-cols-5 gap-1.5 p-1.5 bg-black">
+                                ${productImages.map((src, i) => `
+                                    <button onclick="selectImage('${product.id}', ${i})"
+                                            id="thumb-${product.id}-${i}"
+                                            class="thumb-${product.id} aspect-square overflow-hidden border ${i === 0 ? 'border-gold' : 'border-transparent'} transition-all">
+                                        <img src="${src}" alt="" class="w-full h-full object-cover" />
+                                    </button>
+                                `).join('')}
+                            </div>
+                       </div>`
+                    : `<div class="bg-dark-bg border border-border-dark w-full h-72 mb-6 flex items-center justify-center p-10 group relative overflow-hidden">
+                            <div class="w-36 h-36 transition-transform duration-500 group-hover:scale-110">
+                                ${product.svg}
+                            </div>
+                            <span class="absolute top-3 left-3 text-[9px] tracking-[0.25em] text-gold font-mono uppercase font-semibold">LIMITED PIECE</span>
+                       </div>`;
+
+                card.innerHTML = `
+                    <div>
+                        ${mediaHtml}
+
+                        <!-- Product Title -->
+                        <h3 class="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-white mb-2">${product.title}</h3>
+                        
+                        <!-- Price -->
+                        <p class="text-gold font-mono font-bold text-base tracking-[0.15em] mb-6">£${product.price}.00</p>
+                    </div>
+
+                    <div>
+                        ${colorOptionsHtml}
+
+                        <!-- Size Selector -->
+                        <div class="mb-6">
+                            <label class="block text-[9px] tracking-[0.2em] uppercase text-neutral-500 mb-2">SIZE OPTION:</label>
+                            ${sizeOptionsHtml}
+                        </div>
+
+                        <!-- Add To Cart Button -->
+                        <button onclick="addToCart('${product.id}')" class="w-full border border-gold text-white hover:bg-gold hover:text-black py-3.5 text-xs tracking-[0.25em] font-bold uppercase transition-all duration-300">
+                            ADD TO CART
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Colour Selection Logic — swaps the whole gallery to the chosen colour's photos
+        function selectColor(productId, color) {
+            selectedColor[productId] = color;
+            selectedImage[productId] = 0;
+
+            document.querySelectorAll(`.color-btn-${productId}`).forEach(btn => {
+                const isActive = btn.id === `color-btn-${productId}-${color}`;
+                btn.className = `color-btn-${productId} py-2 border ${isActive ? 'border-gold text-gold font-bold bg-gold/10' : 'border-border-dark text-neutral-400 hover:border-neutral-600'} transition-all uppercase`;
+            });
+
+            renderProducts();
+        }
+
+        // Gallery Thumbnail Selection
+        function selectImage(productId, index) {
+            selectedImage[productId] = index;
+            const product = products.find(p => p.id === productId);
+            const images = product.colors ? product.images[selectedColor[productId]] : product.images;
+            document.getElementById(`main-img-${productId}`).src = images[index];
+
+            document.querySelectorAll(`.thumb-${productId}`).forEach((btn, i) => {
+                btn.classList.toggle('border-gold', i === index);
+                btn.classList.toggle('border-transparent', i !== index);
+            });
+        }
+
+        // Size Selection Logic
+        function selectSize(productId, size) {
+            selectedSizes[productId] = size;
+            
+            // Update UI Button active states for this product
+            const buttons = document.querySelectorAll(`.size-btn-${productId}`);
+            buttons.forEach(btn => {
+                btn.className = `size-btn-${productId} py-2 border border-border-dark text-neutral-400 hover:border-neutral-600 transition-all`;
+            });
+
+            const activeBtn = document.getElementById(`size-btn-${productId}-${size}`);
+            if (activeBtn) {
+                activeBtn.className = `size-btn-${productId} py-2 border border-gold text-gold font-bold bg-gold/10 transition-all`;
+            }
+        }
+
+        // Add Product to Cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const chosenSize = selectedSizes[productId];
+            const chosenColor = product.colors ? selectedColor[productId] : null;
+
+            // Check if item with same ID, colour and size already exists in cart
+            const existingIndex = cart.findIndex(
+                item => item.id === productId && item.size === chosenSize && item.color === chosenColor
+            );
+
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                const images = product.images
+                    ? (product.colors ? product.images[chosenColor] : product.images)
+                    : null;
+                cart.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    size: chosenSize,
+                    color: chosenColor,
+                    quantity: 1,
+                    thumb: images ? images[0] : null,
+                    svg: product.svg
+                });
+            }
+
+            updateCartUI();
+            showToast(`ADDED: ${product.title}${chosenColor ? ' (' + chosenColor + ')' : ''} (${chosenSize})`);
+            toggleCart(true); // Open drawer automatically on add
+        }
+
+        // Change Cart Item Quantity (+ / -)
+        function changeQuantity(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        // Remove Item completely from Cart
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // Update Cart Drawer & Calculations
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Update counters
+            document.getElementById('cart-counter').innerText = totalCount;
+            document.getElementById('drawer-item-count').innerText = `(${totalCount})`;
+
+            // Enable/Disable Checkout Button
+            document.getElementById('checkout-btn').disabled = cart.length === 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-64 flex flex-col items-center justify-center text-center text-neutral-600 space-y-3">
+                        <div class="w-12 h-12 border border-neutral-800 rounded-full flex items-center justify-center font-mono text-lg text-gold">Ø</div>
+                        <p class="text-xs tracking-[0.25em] uppercase">YOUR CART IS EMPTY</p>
+                    </div>
+                `;
+                document.getElementById('summary-subtotal').innerText = '£0.00';
+                document.getElementById('summary-shipping').innerText = '£0.00';
+                document.getElementById('summary-total').innerText = '£0.00';
+                return;
+            }
+
+            // Render Cart Items List
+            container.innerHTML = cart.map((item, index) => `
+                <div class="flex items-center justify-between border-b border-border-dark pb-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-dark-bg border border-border-dark p-2 flex items-center justify-center shrink-0 overflow-hidden">
+                            ${item.thumb ? `<img src="${item.thumb}" alt="${item.title}" class="w-full h-full object-cover" />` : item.svg}
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold tracking-[0.15em] text-white uppercase line-clamp-1">${item.title}</h4>
+                            <p class="text-[10px] text-neutral-500 tracking-[0.15em] mt-0.5">${item.color ? `<span class="text-gold font-mono">${item.color.toUpperCase()}</span> / ` : ''}SIZE: <span class="text-gold font-mono">${item.size}</span></p>
+                            <p class="text-xs text-gold font-mono font-bold mt-1">£${item.price}.00</p>
+                        </div>
+                    </div>
+
+                    <!-- Quantity controls and remove button -->
+                    <div class="flex flex-col items-end space-y-2">
+                        <button onclick="removeItem(${index})" class="text-neutral-600 hover:text-red-400 text-xs font-mono">&times;</button>
+                        <div class="flex items-center border border-border-dark font-mono text-xs">
+                            <button onclick="changeQuantity(${index}, -1)" class="px-2 py-0.5 text-neutral-400 hover:text-white hover:bg-border-dark">-</button>
+                            <span class="px-2 py-0.5 text-white">${item.quantity}</span>
+                            <button onclick="changeQuantity(${index}, 1)" class="px-2 py-0.5 text-neutral-400 hover:text-white hover:bg-border-dark">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Calculate Totals (No VAT, £2.99 Flat Shipping)
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = 2.99;
+            const grandTotal = subtotal + shipping;
+
+            document.getElementById('summary-subtotal').innerText = `£${subtotal.toFixed(2)}`;
+            document.getElementById('summary-shipping').innerText = `£${shipping.toFixed(2)}`;
+            document.getElementById('summary-total').innerText = `£${grandTotal.toFixed(2)}`;
+        }
+
+        // Toggle Cart Drawer Drawer Slide Effect
+        function toggleCart(open) {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+
+            if (open) {
+                drawer.classList.remove('translate-x-full');
+                backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            toast.className = 'toast-enter bg-black border border-gold text-white text-[10px] tracking-[0.2em] uppercase py-3 px-5 shadow-2xl flex items-center space-x-3 pointer-events-auto';
+            toast.innerHTML = `
+                <span class="text-gold font-bold">✓</span>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // Checkout Action Trigger — sends the cart to the server, which
+        // re-prices it and creates a real SumUp Hosted Checkout, then
+        // redirects the customer there to actually pay.
+        async function checkout() {
+            if (cart.length === 0) return;
+
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const originalLabel = checkoutBtn.innerText;
+            checkoutBtn.disabled = true;
+            checkoutBtn.innerText = 'REDIRECTING TO PAYMENT…';
+
+            // Stash a summary so the success screen can show it after SumUp
+            // redirects back — the cart itself gets cleared before we leave.
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            localStorage.setItem('bizzare_last_order', JSON.stringify({
+                itemCount: totalCount,
+                orderId: `#BZ-${Math.floor(10000 + Math.random() * 90000)}`
+            }));
+
+            try {
+                const response = await fetch('/api/create-checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart.map(item => ({ id: item.id, size: item.size, color: item.color, quantity: item.quantity }))
+                    })
+                });
+
+                if (!response.ok) throw new Error('Checkout could not be created');
+
+                const data = await response.json();
+                if (!data.url) throw new Error('No checkout URL returned');
+
+                window.location.href = data.url;
+            } catch (err) {
+                console.error(err);
+                showToast('COULD NOT START CHECKOUT — TRY AGAIN');
+                checkoutBtn.disabled = false;
+                checkoutBtn.innerText = originalLabel;
+            }
+        }
+
+        // Shown when SumUp redirects the customer back after a successful
+        // payment (see redirect_url in functions/api/create-checkout.js).
+        function showOrderConfirmation() {
+            const stored = localStorage.getItem('bizzare_last_order');
+            const order = stored ? JSON.parse(stored) : { itemCount: '—', orderId: '#BZ-00000' };
+
+            document.getElementById('modal-order-id').innerText = order.orderId;
+            document.getElementById('modal-item-count').innerText = `${order.itemCount} PIECE(S)`;
+            document.getElementById('modal-total-price').innerText = 'PAID VIA SUMUP';
+
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+
+            localStorage.removeItem('bizzare_last_order');
+            cart = [];
+            updateCartUI();
+
+            // Clean the ?order=success param out of the URL bar
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        // Close Checkout Confirmation Modal
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            
+            // Empty cart after checkout complete
+            cart = [];
+            updateCartUI();
+        }
+
+        // Initial Load Execution
+        window.onload = function() {
+            renderProducts();
+            updateCartUI();
+
+            if (new URLSearchParams(window.location.search).get('order') === 'success') {
+                showOrderConfirmation();
+            }
+        };
+    </script>
+</body>
+</html>
